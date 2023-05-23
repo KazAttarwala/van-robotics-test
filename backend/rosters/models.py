@@ -15,6 +15,6 @@ class Learner(models.Model):
     first_name = models.TextField(max_length=100, blank=True, null=True)
     last_name = models.TextField(max_length=100, blank=True, null=True)
     grade = models.TextField(max_length=2, blank=True, null=True)
-    classbatch = models.ForeignKey(ClassBatch, on_delete=models.SET_NULL, null=True)
+    classbatch = models.ManyToManyField(ClassBatch)
     
 
