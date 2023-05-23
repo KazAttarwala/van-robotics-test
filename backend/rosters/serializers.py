@@ -9,4 +9,4 @@ class ClassBatchViewSerializer(serializers.ModelSerializer):
 class LearnerViewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Learner
-        fields = "__all__"
+        fields = ('id', 'first_name', 'last_name', 'grade', 'classbatch')
