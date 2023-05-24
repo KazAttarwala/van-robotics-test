@@ -42,6 +42,9 @@ const apiFactory = (token, user) => {
     fetchClassBatch: (cbid) => {
       return fetchWithError(`${config.apiUrl}/rosters/classbatch/${cbid}/`, getData());
     },
+    fetchClassBatchList: () => {
+      return fetchWithError(`${config.apiUrl}/rosters/classbatch/`, getData());
+    }
   }
 
   return api;

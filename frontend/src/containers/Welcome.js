@@ -133,6 +133,8 @@ const Welcome = ({ api }) => {
             No results found...
           </p>
         )}
+
+      <Link to='/classBatch'>See All Classes</Link>
       </div>
     </div>
   );
