@@ -7,6 +7,7 @@ from rosters.serializers import (
 )
 
 # Class Batch Views
+#TODO: Refactor to use RetrieveUpdateDestroyAPIView instead of separate views for each operation
 class ClassBatchView(generics.RetrieveAPIView):
     serializer_class = ClassBatchViewSerializer
 
@@ -41,6 +42,7 @@ class ClassBatchCreateView(generics.CreateAPIView):
         return ClassBatch.objects.all()#.prefetch_related('learners')
     
 # Learner Views 
+#TODO: Refactor to use RetrieveUpdateDestroyAPIView instead of separate views for each operation
 class LearnerView(generics.RetrieveAPIView):
     serializer_class = LearnerViewSerializer
 
