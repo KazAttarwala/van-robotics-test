@@ -10,6 +10,7 @@ import '../App.css';
 const ClassBatch = ({ api }) => {
 
   const params = useParams();
+  //get this from the API instead of hardcoding it here (and in LearnerList.js)
   const modelFields = [
     'id', 'name', 'instructor'
   ]
@@ -30,6 +31,19 @@ const ClassBatch = ({ api }) => {
         setClassBatchResult('No results found...');
       });
   };
+  
+  //put this in a separate file and import it here  (and in LearnerList.js) to avoid duplication
+  const updateClassBatchName = (text) => {
+    api
+      .updateClassBatch(params.classbatchId, {name: text})
+      .then((res) => {
+        console.log("Updated ClassBatch:",res);
+        fetchInfo();
+      })
+      .catch((e) => {
+        console.log("Error updating ClassBatch: ",e);
+      });
+  }
 
   useEffect(() => {
     fetchInfo();
@@ -44,11 +58,23 @@ const ClassBatch = ({ api }) => {
       </div>
       <div>
         {classbatchResult && classbatchResult.id && (
-          modelFields.map((field) => (
-            <div>
-              {field + ": " + classbatchResult[field]}
-            </div>
-          ))
+          modelFields.map((field) => {
+            if (field === 'name') {
+              return <div>
+                {field + ": "}
+                <input
+                  type="text"
+                  onChange={(e) => updateClassBatchName(e.target.value)}
+                  value={classbatchResult[field]}
+                />
+              </div>
+            }
+            else {
+              return <div>
+                {field + ": " + classbatchResult[field]}
+              </div>
+            }
+    })
         )}
         {classbatchResult && !classbatchResult.id && (
           <p>

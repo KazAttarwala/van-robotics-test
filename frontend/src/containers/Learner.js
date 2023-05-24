@@ -10,6 +10,7 @@ import '../App.css';
 const Learner = ({ api }) => {
 
   const params = useParams();
+    //get this from the API instead of hardcoding it here (and in LearnerList.js)
   const modelFields = [
     'id', 'first_name', 'last_name', 'grade', 'classbatch'
   ]

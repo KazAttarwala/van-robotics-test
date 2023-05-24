@@ -29,6 +29,16 @@ const apiFactory = (token, user) => {
     }
   }
 
+  const updateData = (data) => {
+    return {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    }
+  }
+
   const api = {
     fetchLearner: (lid) => {
       return fetchWithError(`${config.apiUrl}/rosters/learner/${lid}/`, getData());
@@ -44,6 +54,9 @@ const apiFactory = (token, user) => {
     },
     fetchClassBatchList: () => {
       return fetchWithError(`${config.apiUrl}/rosters/classbatch/`, getData());
+    },
+    updateClassBatch: (cbid, data) => {
+      return fetchWithError(`${config.apiUrl}/rosters/classbatch/${cbid}/edit/`, updateData(data));
     }
   }
 

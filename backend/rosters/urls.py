@@ -7,4 +7,5 @@ urlpatterns = [
     path('learner/<int:pk>/delete/', views.LearnerDeleteView.as_view(), name='LearnerDeleteView'),
     path('classbatch/', views.ClassBatchListView.as_view(), name='ClassBatchListView'),
     path('classbatch/<int:pk>/', views.ClassBatchView.as_view(), name='ClassBatchView'),
+    path('classbatch/<int:pk>/edit/', views.ClassBatchUpdateView.as_view(), name='ClassBatchUpdateView'),
 ]
