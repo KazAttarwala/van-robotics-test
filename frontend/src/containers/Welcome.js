@@ -86,6 +86,8 @@ const Welcome = ({ api }) => {
           </p>
         )}
       </div>
+      
+      <Link to='/learner'>See All Learners</Link>
 
       <div><p>OR</p></div>
 
