@@ -22,13 +22,25 @@ class ClassBatchListView(generics.ListAPIView):
     def get_queryset(self):
         return ClassBatch.objects.all()#.prefetch_related('learners')
 
+class ClassBatchDeleteView(generics.DestroyAPIView):
+    serializer_class = ClassBatchViewSerializer
+    
+    def get_queryset(self):
+       return ClassBatch.objects.all()#.prefetch_related('learners')
+    
 class ClassBatchUpdateView(generics.UpdateAPIView):
     serializer_class = ClassBatchViewSerializer
 
     def get_queryset(self):
         return ClassBatch.objects.all()#.prefetch_related('learners')
 
-# Learner Views
+class ClassBatchCreateView(generics.CreateAPIView):
+    serializer_class = ClassBatchViewSerializer
+
+    def get_queryset(self):
+        return ClassBatch.objects.all()#.prefetch_related('learners')
+    
+# Learner Views 
 class LearnerView(generics.RetrieveAPIView):
     serializer_class = LearnerViewSerializer
 
@@ -46,4 +58,16 @@ class LearnerDeleteView(generics.DestroyAPIView):
     
     def get_queryset(self):
        return Learner.objects.all()
+
+class LearnerUpdateView(generics.UpdateAPIView):
+    serializer_class = LearnerViewSerializer
+
+    def get_queryset(self):
+        return Learner.objects.all()
+
+class LearnerCreateView(generics.CreateAPIView):
+    serializer_class = LearnerViewSerializer
+
+    def get_queryset(self):
+        return Learner.objects.all()
 
