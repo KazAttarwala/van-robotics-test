@@ -8,6 +8,7 @@ import {
   Welcome,
   ClassBatch,
   Learner,
+  LearnerList,
 } from './containers';
 
 const App = ({ api }) => {
@@ -16,6 +17,7 @@ const App = ({ api }) => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Welcome />} />
+          <Route path="/learner/" element={<LearnerList />} />
           <Route path="/learner/:learnerId" element={<Learner />} />
           <Route path="/classbatch/:classbatchId" element={<ClassBatch />} />
         </Routes>

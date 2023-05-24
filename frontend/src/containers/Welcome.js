@@ -13,6 +13,7 @@ const Welcome = ({ api }) => {
   const [classbatchSearchText, setClassBatchSearchText] = useState(null);
   const [classbatchResult, setClassBatchResult] = useState(null);
 
+  //put this in a separate file and import it here  (and in LearnerList.js) to avoid duplication
   const learnerSearch = (text) => {
     setLearnerResult(null);
     api

@@ -16,6 +16,7 @@ const Learner = ({ api }) => {
 
   const [learnerResult, setLearnerResult] = useState(null);
 
+  //put this in a separate file and import it here  (and in LearnerList.js) to avoid duplication
   const fetchInfo = () => {
     setLearnerResult(null);
     api

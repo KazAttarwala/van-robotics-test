@@ -3,10 +3,10 @@ from rest_framework import generics
 
 from rosters.models import ClassBatch, Learner
 from rosters.serializers import (
-        ClassBatchViewSerializer, LearnerViewSerializer
+    ClassBatchViewSerializer, LearnerViewSerializer
 )
 
-
+# Class Batch Views
 class ClassBatchView(generics.RetrieveAPIView):
     serializer_class = ClassBatchViewSerializer
 
@@ -16,8 +16,28 @@ class ClassBatchView(generics.RetrieveAPIView):
     def get_queryset(self):
         return ClassBatch.objects.all()#.prefetch_related('learners')
 
+class ClassBatchListView(generics.ListAPIView):
+    serializer_class = ClassBatchViewSerializer
+
+    def get_queryset(self):
+        return ClassBatch.objects.all()#.prefetch_related('learners')
+
+# Learner Views
 class LearnerView(generics.RetrieveAPIView):
     serializer_class = LearnerViewSerializer
 
     def get_queryset(self):
         return Learner.objects.all()
+    
+class LearnerListView(generics.ListAPIView):
+    serializer_class = LearnerViewSerializer
+
+    def get_queryset(self):
+        return Learner.objects.all()
+
+class LearnerDeleteView(generics.DestroyAPIView):
+    serializer_class = LearnerViewSerializer
+    
+    def get_queryset(self):
+       return Learner.objects.all()
+

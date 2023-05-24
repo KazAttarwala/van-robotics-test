@@ -16,6 +16,7 @@ const ClassBatch = ({ api }) => {
 
   const [classbatchResult, setClassBatchResult] = useState(null);
 
+  //put this in a separate file and import it here  (and in LearnerList.js) to avoid duplication
   const fetchInfo = () => {
     setClassBatchResult(null);
     api
@@ -54,6 +55,20 @@ const ClassBatch = ({ api }) => {
             No ClassBatch found with this id...
           </p>
         )}
+      </div>
+      <div>
+        <div>
+          <p>Learners</p>
+        </div>
+        <div>
+          {classbatchResult && classbatchResult.learners && (
+            classbatchResult.learners.map((learner) => (
+              <Link to={'/learner/' + learner.id}>
+                {learner.first_name + " " + learner.last_name}
+              </Link>
+            ))
+          )}
+        </div>
       </div>
     </div>
   );
