@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { compose } from 'redux';
 import { Link } from 'react-router-dom';
 import withAPI from '../services/api';
 
 import logo from '../static/logo.svg';
 import '../App.css';
+import LearnerList from './LearnerList';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { StateContext } from '../common/StateContext';
 
 const Welcome = ({ api }) => {
 
@@ -12,6 +16,8 @@ const Welcome = ({ api }) => {
   const [learnerResult, setLearnerResult] = useState(null);
   const [classbatchSearchText, setClassBatchSearchText] = useState(null);
   const [classbatchResult, setClassBatchResult] = useState(null);
+  //const [totalLearners, setTotalLearners] = useState(null);
+  const { totalLearners, setTotalLearners } = useContext(StateContext);
 
   //put this in a separate file and import it here  (and in LearnerList.js) to avoid duplication
   const learnerSearch = (text) => {
@@ -19,11 +25,11 @@ const Welcome = ({ api }) => {
     api
       .fetchLearner(text)
       .then((res) => {
-        console.log("Received Learner:",res);
+        console.log("Received Learner:", res);
         setLearnerResult(res);
       })
       .catch((e) => {
-        console.log("Error fetching Learner: ",e);
+        console.log("Error fetching Learner: ", e);
         setLearnerResult('No results found...');
       });
   }
@@ -32,33 +38,53 @@ const Welcome = ({ api }) => {
     api
       .fetchClassBatch(text)
       .then((res) => {
-        console.log("Received ClassBatch:",res);
+        console.log("Received ClassBatch:", res);
         setClassBatchResult(res);
       })
       .catch((e) => {
-        console.log("Error fetching ClassBatch: ",e);
+        console.log("Error fetching ClassBatch: ", e);
         setClassBatchResult('No results found...');
       });
   }
 
+  // const fetchTotalLearners = () => {
+  //   api
+  //     .fetchLearnerList()
+  //     .then((res) => {
+  //       console.log("Received Learners:", res);
+  //       setTotalLearners(res);
+  //     })
+  //     .catch((e) => {
+  //       console.log("Error fetching Learners: ", e);
+  //       setTotalLearners(null);
+  //     });
+  // };
+
+  // useEffect(() => {
+  //   fetchTotalLearners();
+  // }, []);
+
   return (
     <div className="App">
-      <div>
-        <p>
+      <h2>Van Robotics Course Manager</h2>
+      <div className='mt-4'>
+        <h3>
           Find Learner by id
-        </p>
+        </h3>
       </div>
-      <div>
-        <input
+      <div className='search-container'>
+        <Form.Control
           type="text"
+          placeholder='Enter Learner id'
           onChange={(e) => setLearnerSearchText(e.target.value)}
           value={learnerSearchText}
+          className='search-input'
         />
-        <button
+        <Button
           onClick={() => learnerSearch(learnerSearchText)}
         >
           Search
-        </button>
+        </Button>
       </div>
       <div>
         {learnerResult && learnerResult.id && (
@@ -68,10 +94,11 @@ const Welcome = ({ api }) => {
             </p>
             <div>
               <p>
-                {"Learner "+learnerResult.id+": "}
+                {"Learner " + learnerResult.id + ": "}
                 <Link
                   to={{
                     pathname: `/learner/${learnerResult.id}`,
+                    //state: { totalLearners: totalLearners }
                   }}
                 >
                   {learnerResult.first_name} {learnerResult.last_name}
@@ -86,27 +113,34 @@ const Welcome = ({ api }) => {
           </p>
         )}
       </div>
-      
-      <Link to='/learner'>See All Learners</Link>
 
-      <div><p>OR</p></div>
+      {/* <Link to={{pathname:"/learner", state:totalLearners}}>{`See All Learners (${totalLearners})`}</Link> */}
+      {totalLearners && totalLearners.length > 0 && (
+        <Link to={{ pathname: "/learner" }}>{`See All Learners (${totalLearners.length})`}</Link>
+      )}
 
-      <div>
-        <p>
-          Find ClassBatch by id
-        </p>
+      <div className='mb-3 mt-3'>
+        <p>OR</p>
       </div>
-      <div>
-        <input
+
+      <div className='mb-3'>
+        <h3>
+          Find ClassBatch by id
+        </h3>
+      </div>
+      <div className='search-container'>
+        <Form.Control
           type="text"
+          placeholder='Enter ClassBatch id'
+          className='search-input'
           onChange={(e) => setClassBatchSearchText(e.target.value)}
           value={classbatchSearchText}
         />
-        <button
+        <Button
           onClick={() => classbatchSearch(classbatchSearchText)}
         >
           Search
-        </button>
+        </Button>
       </div>
       <div>
         {classbatchResult && classbatchResult.id && (
@@ -116,7 +150,7 @@ const Welcome = ({ api }) => {
             </p>
             <div>
               <p>
-                {"ClassBatch "+classbatchResult.id+": "}
+                {"ClassBatch " + classbatchResult.id + ": "}
                 <Link
                   to={{
                     pathname: `/classbatch/${classbatchResult.id}`,
@@ -134,7 +168,7 @@ const Welcome = ({ api }) => {
           </p>
         )}
 
-      <Link to='/classBatch'>See All Classes</Link>
+        <Link to='/classBatch'>See All Classes</Link>
       </div>
     </div>
   );
@@ -143,3 +177,4 @@ const Welcome = ({ api }) => {
 export default compose(
   withAPI
 )(Welcome);
+
