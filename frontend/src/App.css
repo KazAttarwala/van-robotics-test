@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  margin: 100px;
 }
 
 .App-logo {
@@ -35,4 +36,26 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.search-input {
+  width: 200px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.delete-button {
+  margin-left: 10px;
+}
+
+.content-container {
+  margin-bottom: 20px;
+  margin-top: 10px;
 }

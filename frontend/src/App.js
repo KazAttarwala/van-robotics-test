@@ -1,5 +1,6 @@
 //import { render } from 'react-dom';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 import withAPI from './services/api';

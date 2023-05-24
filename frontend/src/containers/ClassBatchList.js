@@ -5,6 +5,7 @@ import withAPI from '../services/api';
 
 import logo from '../static/logo.svg';
 import '../App.css';
+import Loading from '../common/Loading';
 
 const ClassBatchList = ({ api }) => {
 
@@ -21,27 +22,14 @@ const ClassBatchList = ({ api }) => {
     api
       .fetchClassBatchList()
       .then((res) => {
-        console.log("Received ClassBatches:",res);
+        console.log("Received ClassBatches:", res);
         setClassBatchList(res);
       })
       .catch((e) => {
-        console.log("Error fetching ClassBatches: ",e);
+        console.log("Error fetching ClassBatches: ", e);
         setClassBatchList(null);
       });
   };
-
-  //put this in a separate file and import it here  (and in LearnerList.js) to avoid duplication
-//   const deleteLearner = (lid) => {
-//     api
-//       .deleteLearner(lid)
-//       .then((res) => {
-//         console.log("Deleted Learner:",res);
-//         fetchInfo();
-//       })
-//       .catch((e) => {
-//         console.log("Error deleting Learner: ",e);
-//       });
-//   };
 
   useEffect(() => {
     fetchInfo();
@@ -49,30 +37,24 @@ const ClassBatchList = ({ api }) => {
 
   return (
     <div className="App">
+      <h1>All Classes:</h1>
+      {!classBatchList && (
+        <Loading />
+      )}
       <div>
-        <p>
-          All Classes
-        </p>
-      </div>
-      <div>
-        {classBatchList && classBatchList.length > 0 ? (
+        {classBatchList && classBatchList.length > 0 && (
           classBatchList.map((classBatch) => (
             <div>
               <Link to={`/classBatch/${classBatch.id}`}>
                 {classBatch.name}
               </Link>
-              {/* <button
-                onClick={() => deleteLearner(classBatch.id)}
-              >
-                Delete
-              </button> */}
             </div>
           ))
-        ) : 
-        (
-          <p>
+        )}
+        {classBatchList && classBatchList.length === 0 && (
+          <strong>
             No Classes found...
-          </p>
+          </strong>
         )}
       </div>
     </div>
