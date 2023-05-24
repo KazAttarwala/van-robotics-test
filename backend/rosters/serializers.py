@@ -1,12 +1,18 @@
 from rest_framework import serializers
 from rosters.models import ClassBatch, Learner
 
-class ClassBatchViewSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ClassBatch
-        fields = "__all__"
-
 class LearnerViewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Learner
         fields = ('id', 'first_name', 'last_name', 'grade', 'classbatch')
+
+class ClassBatchViewSerializer(serializers.ModelSerializer):
+    learners = LearnerViewSerializer(
+        many=True, 
+        read_only=True
+    )
+
+    class Meta:
+        model = ClassBatch
+        fields = ('id', 'name', 'instructor', 'learners')
+

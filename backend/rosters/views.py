@@ -10,8 +10,11 @@ from rosters.serializers import (
 class ClassBatchView(generics.RetrieveAPIView):
     serializer_class = ClassBatchViewSerializer
 
+    #def get_related_learners(self):
+    #    return Learner.objects.filter(classbatch=self)
+    
     def get_queryset(self):
-        return ClassBatch.objects.all()
+        return ClassBatch.objects.all()#.prefetch_related('learners')
 
 class LearnerView(generics.RetrieveAPIView):
     serializer_class = LearnerViewSerializer
