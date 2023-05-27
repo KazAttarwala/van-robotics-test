@@ -34,6 +34,7 @@ class ClassBatchUpdateView(generics.UpdateAPIView):
 
     def get_queryset(self):
         return ClassBatch.objects.all()#.prefetch_related('learners')
+    
 
 class ClassBatchCreateView(generics.CreateAPIView):
     serializer_class = ClassBatchViewSerializer
