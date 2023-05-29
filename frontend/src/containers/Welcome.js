@@ -6,6 +6,7 @@ import '../App.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { StateContext } from '../common/StateContext';
+import { Player } from '@lottiefiles/react-lottie-player';
 
 const Welcome = ({ api }) => {
   const [learnerSearchText, setLearnerSearchText] = useState(null);
@@ -44,6 +45,12 @@ const Welcome = ({ api }) => {
 
   return (
     <div className="App">
+      <Player
+        src='https://assets7.lottiefiles.com/packages/lf20_BWcL6WonZx.json'
+        loop
+        autoplay
+        style={{ height: '300px', width: '300px' }}
+      />
       <h2>Van Robotics Course Manager</h2>
       <div className='mt-4'>
         <h3>
