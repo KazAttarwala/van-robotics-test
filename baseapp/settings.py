@@ -29,7 +29,7 @@ ALLOWED_HOSTS = [
     '127.0.0.1:8000',
     'localhost',
     '127.0.0.1',
-    'https://van-robotics-test.azurewebsites.net/'
+    'van-robotics-test.azurewebsites.net'
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
