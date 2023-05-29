@@ -1,27 +1,22 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { compose } from 'redux';
 import { useParams, Link } from 'react-router-dom';
 import withAPI from '../services/api';
 import Form from 'react-bootstrap/Form';
-
-import logo from '../static/logo.svg';
 import '../App.css';
 import Loading from '../common/Loading';
 
-
 const ClassBatch = ({ api }) => {
-  const inputRef = useRef(null);
   const params = useParams();
   //get this from the API instead of hardcoding it here (and in LearnerList.js)
   const modelFields = [
     'id', 'name', 'instructor'
   ]
 
-  const [classbatchResult, setClassBatchResult] = useState(null);
+  const [classbatchResult, setClassBatchResult] = useState("");
 
   //put this in a separate file and import it here  (and in LearnerList.js) to avoid duplication
   const fetchInfo = () => {
-    setClassBatchResult(null);
     api
       .fetchClassBatch(params.classbatchId)
       .then((res) => {
@@ -48,9 +43,6 @@ const ClassBatch = ({ api }) => {
   }
 
   useEffect(() => {
-    // if (inputRef.current === document.activeElement) {
-    //   inputRef.current.focus();
-    // }
     fetchInfo();
   }, []);
 
@@ -69,13 +61,12 @@ const ClassBatch = ({ api }) => {
               return <div className='search-container'>
                 <strong>{field + ": "}</strong>
                 <Form.Control
-                  //ref={inputRef}
                   key={classbatchResult.id + "_" + classbatchResult.name}
                   type="text"
                   placeholder='Enter name'
-                  onChange={(e) => updateClassBatchName(e.target.value)}
+                  onBlur={(e) => updateClassBatchName(e.target.value)}
                   className='search-input'
-                  value={classbatchResult.name}
+                  defaultValue={classbatchResult.name}
                 />
               </div>
             }
@@ -100,7 +91,7 @@ const ClassBatch = ({ api }) => {
           <strong>Learners:</strong>
           <div>
             {classbatchResult.learners.map((learner) => (
-              <Link to={'/learner/' + learner.id}>
+              <Link key={`${learner.id}_${learner.first_name}_${learner.last_name}`} to={'/learner/' + learner.id}>
                 {learner.first_name + " " + learner.last_name}
               </Link>
             ))}
