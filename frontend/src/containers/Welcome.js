@@ -2,21 +2,16 @@ import React, { useContext, useEffect, useState } from 'react';
 import { compose } from 'redux';
 import { Link } from 'react-router-dom';
 import withAPI from '../services/api';
-
-import logo from '../static/logo.svg';
 import '../App.css';
-import LearnerList from './LearnerList';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { StateContext } from '../common/StateContext';
 
 const Welcome = ({ api }) => {
-
   const [learnerSearchText, setLearnerSearchText] = useState(null);
   const [learnerResult, setLearnerResult] = useState(null);
   const [classbatchSearchText, setClassBatchSearchText] = useState(null);
   const [classbatchResult, setClassBatchResult] = useState(null);
-  //const [totalLearners, setTotalLearners] = useState(null);
   const { totalLearners, setTotalLearners } = useContext(StateContext);
 
   //put this in a separate file and import it here  (and in LearnerList.js) to avoid duplication
@@ -46,23 +41,6 @@ const Welcome = ({ api }) => {
         setClassBatchResult('No results found...');
       });
   }
-
-  // const fetchTotalLearners = () => {
-  //   api
-  //     .fetchLearnerList()
-  //     .then((res) => {
-  //       console.log("Received Learners:", res);
-  //       setTotalLearners(res);
-  //     })
-  //     .catch((e) => {
-  //       console.log("Error fetching Learners: ", e);
-  //       setTotalLearners(null);
-  //     });
-  // };
-
-  // useEffect(() => {
-  //   fetchTotalLearners();
-  // }, []);
 
   return (
     <div className="App">
@@ -98,7 +76,6 @@ const Welcome = ({ api }) => {
                 <Link
                   to={{
                     pathname: `/learner/${learnerResult.id}`,
-                    //state: { totalLearners: totalLearners }
                   }}
                 >
                   {learnerResult.first_name} {learnerResult.last_name}
@@ -114,9 +91,8 @@ const Welcome = ({ api }) => {
         )}
       </div>
 
-      {/* <Link to={{pathname:"/learner", state:totalLearners}}>{`See All Learners (${totalLearners})`}</Link> */}
       {totalLearners && totalLearners.length > 0 && (
-        <Link to={{ pathname: "/learner" }}>{`See All Learners (${totalLearners.length})`}</Link>
+        <Link to="/learner">{`See All Learners (${totalLearners.length})`}</Link>
       )}
 
       <div className='mb-3 mt-3'>
