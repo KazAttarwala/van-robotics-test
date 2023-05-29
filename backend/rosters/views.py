@@ -1,5 +1,7 @@
+from urllib import response
 from django.shortcuts import render
 from rest_framework import generics
+from rest_framework.response import Response
 
 from rosters.models import ClassBatch, Learner
 from rosters.serializers import (
@@ -25,9 +27,12 @@ class ClassBatchListView(generics.ListAPIView):
 
 class ClassBatchDeleteView(generics.DestroyAPIView):
     serializer_class = ClassBatchViewSerializer
+    queryset = ClassBatch.objects.all()
     
-    def get_queryset(self):
-       return ClassBatch.objects.all()#.prefetch_related('learners')
+    def delete(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response({"message": "ClassBatch deleted successfully"})
     
 class ClassBatchUpdateView(generics.UpdateAPIView):
     serializer_class = ClassBatchViewSerializer
@@ -58,9 +63,12 @@ class LearnerListView(generics.ListAPIView):
 
 class LearnerDeleteView(generics.DestroyAPIView):
     serializer_class = LearnerViewSerializer
+    queryset = Learner.objects.all()
     
-    def get_queryset(self):
-       return Learner.objects.all()
+    def delete(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response({"message": "Learner deleted successfully"})
 
 class LearnerUpdateView(generics.UpdateAPIView):
     serializer_class = LearnerViewSerializer
