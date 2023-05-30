@@ -27,7 +27,7 @@ const LearnerList = ({ api }) => {
   return (
     <div className="App">
       <h1>
-        {`All Learners (${totalLearners ? totalLearners.length : '???'})`}
+        {`All Learners ${totalLearners ? `(${totalLearners.length})` : ''}`}
       </h1>
       {!totalLearners && (
         <Loading />
