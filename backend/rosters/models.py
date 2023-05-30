@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class ClassBatch(models.Model):
     """
     Corresponds to groups of Learners led by an instructor, colloquially "classes".
@@ -13,8 +12,8 @@ class Learner(models.Model):
     """
     Corresponds to a single student.
     """
+    secret_id = models.TextField(max_length=100, blank=True, null=True)
     first_name = models.TextField(max_length=100, blank=True, null=True)
     last_name = models.TextField(max_length=100, blank=True, null=True)
     grade = models.TextField(max_length=2, blank=True, null=True)
-    classbatch = models.ForeignKey(ClassBatch, on_delete=models.SET_NULL, null=True)
-
+    classbatches = models.ManyToManyField(ClassBatch, related_name='learners')
