@@ -56,6 +56,42 @@ class ClassBatchTestCase(TestCase):
         classbatch = ClassBatch.objects.all()
         self.assertEqual(classbatch.count(), 1)
 
+class LearnerClassBatchTestCase(TestCase):
+    def setUp(self):
+        learner = Learner.objects.create(first_name='John', last_name='Doe')
+        classbatch = ClassBatch.objects.create(name='Math Class', instructor='Math Instructor')
+        learner.classbatches.add(classbatch)
+    
+    def test_learner_classbatch_creation(self):
+        learner = Learner.objects.get(first_name='John')
+        classbatch = ClassBatch.objects.get(name='Math Class')
+        self.assertEqual(learner.classbatches.get(name='Math Class'), classbatch)
+
+    def test_learner_classbatch_deletion(self):   
+        learner = Learner.objects.get(first_name='John')
+        classbatch = ClassBatch.objects.get(name='Math Class')
+        learner.classbatches.remove(classbatch)
+        self.assertEqual(learner.classbatches.count(), 0)
+
+    def test_learner_classbatch_update(self):   
+        learner = Learner.objects.get(first_name='John')
+        classbatch = ClassBatch.objects.get(name='Math Class')
+        learner.classbatches.remove(classbatch)
+        classbatch.name = 'Science Class'
+        classbatch.save()
+        learner.classbatches.add(classbatch)
+        self.assertEqual(learner.classbatches.get(name='Science Class'), classbatch)
+
+    def test_learner_classbatch_retrieval(self):    
+        learner = Learner.objects.get(first_name='John')
+        classbatch = ClassBatch.objects.get(name='Math Class')
+        self.assertEqual(learner.classbatches.get(name='Math Class'), classbatch)
+
+    def test_learner_classbatch_retrieval_all(self):    
+        learner = Learner.objects.get(first_name='John')
+        classbatch = ClassBatch.objects.all()
+        self.assertEqual(learner.classbatches.count(), 1)
+
 
     
 
