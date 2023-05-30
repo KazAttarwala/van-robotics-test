@@ -1,6 +1,4 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { compose } from 'redux';
-//import withAPI from '../services/api';
 
 // Create the context
 export const StateContext = createContext();
@@ -33,7 +31,4 @@ export const StateProvider = ({ children, api }) => {
   );
 };
 
-// export default compose(
-//   withAPI
-// )(StateProvider);
 export default StateProvider;

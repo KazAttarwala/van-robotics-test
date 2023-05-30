@@ -89,13 +89,13 @@ const ClassBatch = ({ api }) => {
       {classbatchResult && classbatchResult.learners && (
         <div>
           <strong>Learners:</strong>
-          <div>
-            {classbatchResult.learners.map((learner) => (
+          {classbatchResult.learners.map((learner) => (
+            <div>
               <Link key={`${learner.id}_${learner.first_name}_${learner.last_name}`} to={'/learner/' + learner.id}>
                 {learner.first_name + " " + learner.last_name}
               </Link>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       )}
     </div>

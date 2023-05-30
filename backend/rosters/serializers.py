@@ -4,7 +4,7 @@ from rosters.models import ClassBatch, Learner
 class LearnerViewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Learner
-        fields = ('id', 'first_name', 'last_name', 'grade', 'classbatch')
+        fields = ('id', 'first_name', 'last_name', 'grade', 'classbatches')
 
 class ClassBatchViewSerializer(serializers.ModelSerializer):
     learners = LearnerViewSerializer(
