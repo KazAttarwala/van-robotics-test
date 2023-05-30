@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { compose } from 'redux';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import withAPI from '../services/api';
 
-import logo from '../static/logo.svg';
 import '../App.css';
 import Loading from '../common/Loading';
 
@@ -13,7 +12,7 @@ const Learner = ({ api }) => {
   const params = useParams();
   //get this from the API instead of hardcoding it here (and in LearnerList.js)
   const modelFields = [
-    'id', 'first_name', 'last_name', 'grade', 'classbatch'
+    'id', 'first_name', 'last_name', 'grade'
   ]
 
   const [learnerResult, setLearnerResult] = useState(null);
