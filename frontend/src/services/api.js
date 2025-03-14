@@ -19,14 +19,45 @@ const apiFactory = (token, user) => {
       },
     }
   }
+  
+  const deleteData = () => {
+    return {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  }
+
+  const updateData = (data) => {
+    return {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    }
+  }
 
   const api = {
     fetchLearner: (lid) => {
       return fetchWithError(`${config.apiUrl}/rosters/learner/${lid}/`, getData());
     },
+    fetchLearnerList: () => {
+      return fetchWithError(`${config.apiUrl}/rosters/learner/`, getData());
+    },
+    deleteLearner: (lid) => {
+      return fetchWithError(`${config.apiUrl}/rosters/learner/${lid}/delete/`, deleteData());
+    },
     fetchClassBatch: (cbid) => {
       return fetchWithError(`${config.apiUrl}/rosters/classbatch/${cbid}/`, getData());
     },
+    fetchClassBatchList: () => {
+      return fetchWithError(`${config.apiUrl}/rosters/classbatch/`, getData());
+    },
+    updateClassBatch: (cbid, data) => {
+      return fetchWithError(`${config.apiUrl}/rosters/classbatch/${cbid}/edit/`, updateData(data));
+    }
   }
 
   return api;
